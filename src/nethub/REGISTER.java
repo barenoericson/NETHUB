@@ -6,6 +6,7 @@
 package nethub;
 
 import config.connectDB;
+import config.passwordHasher;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -53,7 +54,7 @@ public class REGISTER extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         un = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
-        usertype = new javax.swing.JTextField();
+        usertype = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -77,8 +78,8 @@ public class REGISTER extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Name: ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        jLabel4.setText("FirstName: ");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -132,6 +133,8 @@ public class REGISTER extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(0,0,0,30));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        usertype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", " " }));
         jPanel8.add(usertype, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, -1));
 
         jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 210, 33));
@@ -157,14 +160,12 @@ public class REGISTER extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
  String First_name = firstname.getText().trim();
 String Last_name = lastname.getText().trim();
 String email = Email.getText().trim().toLowerCase();
-String User_type = usertype.getText().trim();
+String User_type = usertype.getSelectedItem().toString().trim();
 String user_name = un.getText().trim();
 String Password = password.getText().trim();
-
 
 connectDB connect = new connectDB();
 
@@ -186,22 +187,21 @@ if (First_name.isEmpty()) {
     JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long!", "Error", JOptionPane.WARNING_MESSAGE);
 } else {
     try {
-        // Ensure fieldExists method calls are correct
         if (connect.fieldExists("users", "username", user_name)) {
             JOptionPane.showMessageDialog(null, "Username already taken!", "Error", JOptionPane.WARNING_MESSAGE);
         } else if (connect.fieldExists("users", "email", email)) {
             JOptionPane.showMessageDialog(null, "Email already used!", "Error", JOptionPane.WARNING_MESSAGE);
         } else {
-            // Proper SQL insert with default status as 'Pending'
+            String hashedPassword = passwordHasher.hashPassword(password.getText());
+
             String sql = "INSERT INTO users (firstname, lastname, username, email, usertype, password, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            int rowsInserted = connect.insertData(sql, First_name, Last_name, user_name, email, User_type, Password, "Pending");
+            int rowsInserted = connect.insertData(sql, First_name, Last_name, user_name, email, User_type, hashedPassword, "Pending");
 
             if (rowsInserted > 0) {
                 JOptionPane.showMessageDialog(null, "Registered Successfully!");
 
                 new login().setVisible(true);
 
-                // Ensure proper window closing
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(un);
                 if (frame != null) {
                     frame.dispose();
@@ -210,8 +210,8 @@ if (First_name.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Registration failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    } catch (Exception e) { // Catch all exceptions
-        e.printStackTrace(); // Print full error in console
+    } catch (Exception e) {
+        e.printStackTrace();
         JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
@@ -276,6 +276,6 @@ if (First_name.isEmpty()) {
     private javax.swing.JTextField lastname;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField un;
-    private javax.swing.JTextField usertype;
+    private javax.swing.JComboBox<String> usertype;
     // End of variables declaration//GEN-END:variables
 }
