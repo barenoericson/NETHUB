@@ -205,8 +205,6 @@ public class addUser extends javax.swing.JFrame {
 
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Pending" }));
         getContentPane().add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, 200, 30));
-
-        password.setText("jPasswordField1");
         getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, 200, 30));
 
         usertype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));

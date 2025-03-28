@@ -60,6 +60,7 @@ public class UserDashboard extends javax.swing.JFrame {
         id = new javax.swing.JLabel();
         update = new javax.swing.JButton();
         add = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -89,7 +90,7 @@ public class UserDashboard extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/profile-removebg-preview.png"))); // NOI18N
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(60, 40, 83, 92);
+        jLabel3.setBounds(60, 50, 83, 92);
 
         username.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         username.setText("User");
@@ -131,6 +132,19 @@ public class UserDashboard extends javax.swing.JFrame {
         });
         jPanel1.add(add);
         add.setBounds(40, 180, 120, 31);
+
+        jButton4.setBackground(new java.awt.Color(153, 0, 153));
+        jButton4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Back");
+        jButton4.setBorderPainted(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4);
+        jButton4.setBounds(40, 280, 120, 30);
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 410));
 
@@ -206,6 +220,12 @@ if (sess == null || sess.getId() <= 0) { // Fix: Proper session validation
 }
     }//GEN-LAST:event_formWindowActivated
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+      AdminDashboard ad = new AdminDashboard();
+      ad.setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -244,6 +264,7 @@ if (sess == null || sess.getId() <= 0) { // Fix: Proper session validation
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JLabel id;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

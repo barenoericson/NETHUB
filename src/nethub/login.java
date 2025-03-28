@@ -89,6 +89,11 @@ public static boolean loginAcc(String username, String password) {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0,0,0,120));
@@ -191,8 +196,9 @@ public static boolean loginAcc(String username, String password) {
                             this.dispose();
                             break;
                         case "User":
-                            new UserDashboard().setVisible(true);
-                            this.dispose();
+                           USERDASHBOARD1 j = new USERDASHBOARD1();
+                           j.setVisible(true);
+                           this.dispose();
                             break;
                         default:
                             JOptionPane.showMessageDialog(null, "No Account Type Found");
@@ -214,6 +220,10 @@ public static boolean loginAcc(String username, String password) {
         r.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
